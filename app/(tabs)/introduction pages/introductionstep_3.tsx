@@ -17,7 +17,7 @@ const { width, height } = Dimensions.get('window');
    
     router.push('/(tabs)/introduction pages/introductionstep_4');
   };
-const PaginationDots = ({ currentIndex = 1, totalDots = 4 }) => (
+const PaginationDots = ({ currentIndex = 3, totalDots = 4 }) => (
   <View style={styles.paginationContainer}>
     {Array.from({ length: totalDots }).map((_, index) => (
       <View
