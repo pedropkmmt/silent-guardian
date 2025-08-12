@@ -7,11 +7,12 @@ import {
   Animated,
   StatusBar,
   Platform,
+  Image,
 } from 'react-native';
-
+import { useRouter } from 'expo-router';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-// Responsive helper functions
+// helper functions
 const wp = (percentage) => {
   const value = (percentage * screenWidth) / 100;
   return Math.round(value);
@@ -115,88 +116,62 @@ const SGLoadingScreen = () => {
           <View style={[
             styles.logoIcon,
             {
-              width: wp(isSmallScreen ? 16 : 18),
-              height: hp(isSmallScreen ? 6 : 7),
+              width: wp(isSmallScreen ? 25 : 30),
+              height: hp(isSmallScreen ? 12 : 15),
             }
           ]}>
-            {/* Single chat bubble icon */}
-            <View style={[
-              styles.chatBubble,
-              {
-                width: wp(isSmallScreen ? 16 : 18),
-                height: hp(isSmallScreen ? 6 : 7),
-                borderRadius: wp(isSmallScreen ? 3 : 4),
-              }
-            ]}>
-              {/* Chat bubble tail */}
-              
-            </View>
+
+            <Image
+              source={require('../../assets/images/undraw_online-community_3o0l.png')} 
+              style={[
+                styles.logoImage,
+                {
+                  width: wp(isSmallScreen ? 25 : 30),
+                  height: hp(isSmallScreen ? 12 : 15),
+                }
+              ]}
+              resizeMode="contain"
+            />
           </View>
-          <Text style={[
-            styles.appTitle,
-            { 
-              fontSize: responsiveFontSize(isTablet ? 32 : isSmallScreen ? 24 : 28),
-              marginTop: hp(2)
-            }
-          ]}>
-            SG-Chat
-          </Text>
         </View>
 
-        {/* Large Chat Bubble with Loading Text */}
+        {/* Loading Section with Text and Ring */}
         <View style={styles.loadingSection}>
-          <View style={[
-            styles.speechBubbleContainer,
-            {
-              width: isLandscape ? wp(60) : wp(isTablet ? 65 : isSmallScreen ? 70 : 75),
-              height: isLandscape ? wp(45) : wp(isTablet ? 50 : isSmallScreen ? 55 : 60),
-            }
-          ]}>
-            {/* Main bubble */}
-            <View style={[
-              styles.speechBubble,
+          {/* Loading ring */}
+          <Animated.View 
+            style={[
+              styles.loadingRing,
               {
-                width: isLandscape ? wp(60) : wp(isTablet ? 65 : isSmallScreen ? 70 : 75),
-                height: isLandscape ? wp(40) : wp(isTablet ? 45 : isSmallScreen ? 50 : 55),
-                borderRadius: wp(isSmallScreen ? 25 : 30),
+                width: isLandscape ? wp(12) : wp(isTablet ? 12 : isSmallScreen ? 15 : 16),
+                height: isLandscape ? wp(12) : wp(isTablet ? 12 : isSmallScreen ? 15 : 16),
+                borderRadius: isLandscape ? wp(6) : wp(isTablet ? 6 : isSmallScreen ? 7.5 : 8),
+                borderWidth: isSmallScreen ? 2 : 3,
+                transform: [{ rotate: rotation }],
+                marginBottom: hp(3),
+              }
+            ]}
+          />
+          
+          {/* Loading text */}
+          <View style={styles.textContainer}>
+            <Text style={[
+              styles.loadingText,
+              { 
+                fontSize: responsiveFontSize(isTablet ? 20 : isSmallScreen ? 16 : 18),
+                lineHeight: responsiveFontSize(isTablet ? 26 : isSmallScreen ? 20 : 24)
               }
             ]}>
-              {/* Loading ring inside bubble */}
-              <Animated.View 
-                style={[
-                  styles.loadingRing,
-                  {
-                    width: isLandscape ? wp(12) : wp(isTablet ? 12 : isSmallScreen ? 15 : 16),
-                    height: isLandscape ? wp(12) : wp(isTablet ? 12 : isSmallScreen ? 15 : 16),
-                    borderRadius: isLandscape ? wp(6) : wp(isTablet ? 6 : isSmallScreen ? 7.5 : 8),
-                    borderWidth: isSmallScreen ? 2 : 3,
-                    transform: [{ rotate: rotation }]
-                  }
-                ]}
-              />
-              
-              {/* Text inside bubble */}
-              <View style={styles.bubbleTextContainer}>
-                <Text style={[
-                  styles.bubbleText,
-                  { 
-                    fontSize: responsiveFontSize(isTablet ? 20 : isSmallScreen ? 16 : 18),
-                    lineHeight: responsiveFontSize(isTablet ? 26 : isSmallScreen ? 20 : 24)
-                  }
-                ]}>
-                  Stay Connected
-                </Text>
-                <Text style={[
-                  styles.bubbleText,
-                  { 
-                    fontSize: responsiveFontSize(isTablet ? 20 : isSmallScreen ? 16 : 18),
-                    lineHeight: responsiveFontSize(isTablet ? 26 : isSmallScreen ? 20 : 24)
-                  }
-                ]}>
-                  Stay Chatting
-                </Text>
-              </View>
-            </View>
+              Stay Connected
+            </Text>
+            <Text style={[
+              styles.loadingText,
+              { 
+                fontSize: responsiveFontSize(isTablet ? 20 : isSmallScreen ? 16 : 18),
+                lineHeight: responsiveFontSize(isTablet ? 26 : isSmallScreen ? 20 : 24)
+              }
+            ]}>
+              Stay Chatting
+            </Text>
           </View>
         </View>
       </Animated.View>
@@ -234,10 +209,16 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   logoIcon: {
-    width: 70,
-    height: 50,
     position: 'relative',
     marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
+    width: '100%',
+    height: '100%',
+    maxWidth: 350,
+    maxHeight: 280,
   },
   chatBubble: {
     backgroundColor: '#2196F3',
@@ -278,18 +259,15 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   loadingRing: {
-    position: 'absolute',
-    top: 15,
     borderColor: 'transparent',
     borderTopColor: '#2196F3',
     borderRightColor: '#2196F3',
   },
-  bubbleTextContainer: {
+  textContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
   },
-  bubbleText: {
+  loadingText: {
     fontSize: 18,
     fontWeight: '600',
     color: '#2196F3',

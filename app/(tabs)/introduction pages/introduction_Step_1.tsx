@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Dimensions,
+  Image,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 const { width, height } = Dimensions.get('window');
 
 const PaginationDots = ({ currentIndex = 1, totalDots = 4 }) => (
@@ -27,16 +29,25 @@ const IntroductionScreenOne = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header - Skip and Next */}
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <TouchableOpacity>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.nextText}>Next</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* Illustration Area */}
+      <View style={styles.illustrationContainer}>
+        <View style={styles.illustrationWrapper}>
+          <Image
+            source={require('../../../assets/images/undraw_group-chat_4xw0.png')} 
+            style={styles.illustration}
+            resizeMode="contain"
+          />
+        </View>
+      </View>
      
       {/* Content */}
       <View style={styles.contentContainer}>
@@ -68,17 +79,19 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 20,
+    alignItems: 'center',
+    paddingHorizontal: width * 0.05, 
+    paddingTop: height * 0.015, 
+    paddingBottom: height * 0.025, 
+    minHeight: 50,
   },
   skipText: {
-    fontSize: 16,
+    fontSize: Math.min(width * 0.04, 16),
     color: '#9CA3AF',
     fontWeight: '500',
   },
   nextText: {
-    fontSize: 16,
+    fontSize: Math.min(width * 0.04, 16),
     color: '#4A90E2',
     fontWeight: '600',
   },
@@ -87,13 +100,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingVertical: 20,
   },
   illustrationWrapper: {
     width: '100%',
-    height: 250,
+    height: 280,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  illustration: {
+    width: '100%',
+    height: '100%',
+    maxWidth: 350,
+    maxHeight: 280,
   },
   backgroundWave: {
     position: 'absolute',
