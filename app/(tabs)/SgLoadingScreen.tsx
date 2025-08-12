@@ -13,17 +13,17 @@ import { useRouter } from 'expo-router';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // helper functions
-const wp = (percentage) => {
+const wp = (percentage: number) => {
   const value = (percentage * screenWidth) / 100;
   return Math.round(value);
 };
 
-const hp = (percentage) => {
+const hp = (percentage: number) => {
   const value = (percentage * screenHeight) / 100;
   return Math.round(value);
 };
 
-const responsiveFontSize = (size) => {
+const responsiveFontSize = (size: number) => {
   const scale = screenWidth / 375;
   const newSize = size * scale;
   return Math.max(newSize, size * 0.8); 

@@ -10,12 +10,11 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 const { width, height } = Dimensions.get('window');
-
  const router = useRouter();
 
   const handleNavigate = () => {
    
-    router.push('/(tabs)/introduction pages/introductionstep_2');
+    router.push('/(tabs)/introduction pages/introductionstep_3');
   };
 const PaginationDots = ({ currentIndex = 1, totalDots = 4 }) => (
   <View style={styles.paginationContainer}>
@@ -31,7 +30,7 @@ const PaginationDots = ({ currentIndex = 1, totalDots = 4 }) => (
   </View>
 );
 
-const IntroductionScreenOne = () => {
+const IntroductionScreenTwo = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header - Skip and Next */}
@@ -48,7 +47,7 @@ const IntroductionScreenOne = () => {
       <View style={styles.illustrationContainer}>
         <View style={styles.illustrationWrapper}>
           <Image
-            source={require('../../../assets/images/undraw_group-chat_4xw0.png')} 
+            source={require('../../../assets/images/undraw_video-call_i5de.png')} 
             style={styles.illustration}
             resizeMode="contain"
           />
@@ -57,9 +56,9 @@ const IntroductionScreenOne = () => {
      
       {/* Content */}
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Group Chatting</Text>
+        <Text style={styles.title}>Video And Voice Calls</Text>
         <Text style={styles.subtitle}>
-          Connect with multiple members in{'\n'}group chats
+         Instantly connect via video and voice calls.
         </Text>
       </View>
 
@@ -67,16 +66,15 @@ const IntroductionScreenOne = () => {
       <View style={styles.bottomContainer}>
         {/* Get Started Button */}
         <TouchableOpacity onPress={ handleNavigate} style={styles.getStartedButton}>
-          <Text  style={styles.getStartedText}>Get started</Text>
+          <Text style={styles.getStartedText}>Get started</Text>
         </TouchableOpacity>
 
         {/* Pagination Dots */}
-        <PaginationDots currentIndex={0} totalDots={4} />
+        <PaginationDots currentIndex={1} totalDots={4} />
       </View>
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -195,4 +193,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IntroductionScreenOne;
+export default IntroductionScreenTwo;

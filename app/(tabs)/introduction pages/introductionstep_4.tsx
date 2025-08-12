@@ -31,7 +31,7 @@ const PaginationDots = ({ currentIndex = 1, totalDots = 4 }) => (
   </View>
 );
 
-const IntroductionScreenOne = () => {
+const IntroductionScreenFour = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header - Skip and Next */}
@@ -48,7 +48,7 @@ const IntroductionScreenOne = () => {
       <View style={styles.illustrationContainer}>
         <View style={styles.illustrationWrapper}>
           <Image
-            source={require('../../../assets/images/undraw_group-chat_4xw0.png')} 
+            source={require('../../../assets/images/undraw_work-chat_hc3y.png')} 
             style={styles.illustration}
             resizeMode="contain"
           />
@@ -57,9 +57,9 @@ const IntroductionScreenOne = () => {
      
       {/* Content */}
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Group Chatting</Text>
+        <Text style={styles.title}>Cross-Platform Compatibility</Text>
         <Text style={styles.subtitle}>
-          Connect with multiple members in{'\n'}group chats
+          Access chats on any device seamlessly.
         </Text>
       </View>
 
@@ -71,7 +71,7 @@ const IntroductionScreenOne = () => {
         </TouchableOpacity>
 
         {/* Pagination Dots */}
-        <PaginationDots currentIndex={0} totalDots={4} />
+        <PaginationDots currentIndex={4} totalDots={4} />
       </View>
     </SafeAreaView>
   );
@@ -195,4 +195,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IntroductionScreenOne;
+export default IntroductionScreenFour;
