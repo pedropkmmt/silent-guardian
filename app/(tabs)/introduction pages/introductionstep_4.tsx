@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window');
 
   const handleNavigate = () => {
    
-    router.push('/(tabs)/introduction pages/introductionstep_2');
+    router.push('../login/Login');
   };
 const PaginationDots = ({ currentIndex = 4, totalDots = 4 }) => (
   <View style={styles.paginationContainer}>
