@@ -23,6 +23,11 @@ const handleNavigate = () => {
    
     router.push('/(tabs)/login/otp');
   };
+  const handleRegister = () => {
+   
+    router.push('/(tabs)/SignUp/signup_userprofile');
+  };
+  
   
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -222,6 +227,7 @@ const NumberEntry = () => {
               <TouchableOpacity 
                 style={styles.registerButton}
                 activeOpacity={0.8}
+              onPress={handleRegister}
               >
                 <Text style={styles.registerText}>Register</Text>
               </TouchableOpacity>

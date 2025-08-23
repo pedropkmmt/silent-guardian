@@ -17,6 +17,10 @@ const { width, height } = Dimensions.get('window');
    
     router.push('/(tabs)/introduction pages/introductionstep_4');
   };
+    const handleSkip = () => {
+  router.push('/(tabs)/login/Login'); 
+};
+
 const PaginationDots = ({ currentIndex = 3, totalDots = 4 }) => (
   <View style={styles.paginationContainer}>
     {Array.from({ length: totalDots }).map((_, index) => (
@@ -34,15 +38,6 @@ const PaginationDots = ({ currentIndex = 3, totalDots = 4 }) => (
 const IntroductionScreenThree = () => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header - Skip and Next */}
-      {/* <View style={styles.header}>
-        <TouchableOpacity>
-          <Text style={styles.skipText}>Skip</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.nextText}>Next</Text>
-        </TouchableOpacity>
-      </View> */}
 
       {/* Illustration Area */}
       <View style={styles.illustrationContainer}>
@@ -69,7 +64,15 @@ const IntroductionScreenThree = () => {
         <TouchableOpacity onPress={ handleNavigate} style={styles.getStartedButton}>
           <Text  style={styles.getStartedText}>Get started</Text>
         </TouchableOpacity>
-
+         {/* Navigation Buttons */}
+                        <View style={styles.navigationButtons}>
+                          <TouchableOpacity onPress={handleSkip} style={styles.skipButton}>
+                            <Text style={styles.skipText}>Skip</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={handleNavigate} style={styles.nextButton}>
+                            <Text style={styles.nextText}>Next</Text>
+                          </TouchableOpacity>
+                        </View>
         {/* Pagination Dots */}
         <PaginationDots currentIndex={2} totalDots={4} />
       </View>
@@ -90,16 +93,6 @@ const styles = StyleSheet.create({
     paddingTop: height * 0.015, 
     paddingBottom: height * 0.025, 
     minHeight: 50,
-  },
-  skipText: {
-    fontSize: Math.min(width * 0.04, 16),
-    color: '#9CA3AF',
-    fontWeight: '500',
-  },
-  nextText: {
-    fontSize: Math.min(width * 0.04, 16),
-    color: '#4A90E2',
-    fontWeight: '600',
   },
   illustrationContainer: {
     flex: 1,
@@ -150,6 +143,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 40,
     alignItems: 'center',
+  },
+   navigationButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 20,
+  },
+    skipButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+  },
+  nextButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+  },
+  skipText: {
+    fontSize: Math.min(width * 0.04, 16),
+    color: '#9CA3AF',
+    fontWeight: '500',
+  },
+  nextText: {
+    fontSize: Math.min(width * 0.04, 16),
+    color: '#4A90E2',
+    fontWeight: '600',
   },
   getStartedButton: {
     backgroundColor: '#4A90E2',
