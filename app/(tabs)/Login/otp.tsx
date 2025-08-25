@@ -13,17 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
-import { useRouter } from 'expo-router';
- const router = useRouter();
-const handleNavigate = () => {
-   
-    router.push('/(tabs)/login/otp');
-  };
-
-  const handleBack = () => {
-   
-    router.push('/(tabs)/login/Login');
-  };
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -32,12 +22,16 @@ const isSmallScreen = screenWidth < 375;
 const isTablet = screenWidth > 768;
 
 const OTPEntry = () => {
+  const router = useRouter();
+  const params = useLocalSearchParams();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [resendTimer, setResendTimer] = useState(30);
   const [canResend, setCanResend] = useState(false);
   const inputRefs = useRef<(TextInput | null)[]>([]);
 
- 
+  // Check if this is register mode 
+  const isRegisterMode = params?.mode === 'register';
+  
   const phoneNumber = '+27 82 123 4567'; 
 
   useEffect(() => {
@@ -71,7 +65,19 @@ const OTPEntry = () => {
   const handleVerify = () => {
     const otpCode = otp.join('');
     console.log('OTP Code:', otpCode);
-    // verification logic 
+    console.log('Register mode:', isRegisterMode);
+    
+    // Navigate based on mode
+    if (isRegisterMode) {
+      // if in register mode, go to signup user profile
+      router.push('/(tabs)/SignUp/setpin');
+    } else {
+      router.push('/(tabs)/SignUp/signup_userprofile'); 
+    }
+  };
+
+  const handleBack = () => {
+    router.push('/(tabs)/login/Login');
   };
 
   const handleResend = () => {
@@ -132,7 +138,8 @@ const OTPEntry = () => {
           {/* Header Content */}
           <View style={styles.header}>
             <View style={styles.headerTop}>
-              <TouchableOpacity onPress={handleBack}
+              <TouchableOpacity 
+                onPress={handleBack}
                 style={styles.backButton}
                 activeOpacity={0.8}
               >
@@ -149,6 +156,13 @@ const OTPEntry = () => {
               We've sent a 6-digit code to{'\n'}
               <Text style={styles.phoneNumberText}>{phoneNumber}</Text>
             </Text>
+            
+            {/* Show different subtitle based on mode */}
+            {isRegisterMode && (
+              <Text style={styles.registerModeText}>
+                Verify your number to complete registration
+              </Text>
+            )}
             
             {/* OTP Input */}
             <View style={styles.otpContainer}>
@@ -278,7 +292,7 @@ const createStyles = () => {
     infoText: {
       fontSize: isTablet ? 16 : 14,
       color: '#8E8E93',
-      marginBottom: isSmallScreen ? 40 : 50,
+      marginBottom: isSmallScreen ? 20 : 30,
       textAlign: 'center',
       fontWeight: '400',
       lineHeight: 22,
@@ -286,6 +300,13 @@ const createStyles = () => {
     phoneNumberText: {
       color: '#333',
       fontWeight: '600',
+    },
+    registerModeText: {
+      fontSize: isTablet ? 14 : 12,
+      color: '#1DA1F2',
+      marginBottom: isSmallScreen ? 30 : 40,
+      textAlign: 'center',
+      fontWeight: '500',
     },
     otpContainer: {
       flexDirection: 'row',

@@ -13,72 +13,22 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { launchImageLibrary, ImagePickerResponse, MediaType } from 'react-native-image-picker';
+import { useRouter } from 'expo-router';
 
+
+
+const router = useRouter();
+const handleNext = () => {
+   
+    router.push('/(tabs)/SignUp/setpin');
+  };
+  const handleBack = () => {
+   
+    router.push('/(tabs)/login/Login');
+  };
 const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [profileImage, setProfileImage] = useState<string | null>(null);
-
-  const requestPhotoPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const permission = Platform.Version >= 33 
-          ? PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES 
-          : PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
-      } catch (err) {
-        console.warn(err);
-        return false;
-      }
-    }
-    return true;
-  };
-
-  const handleEditProfile = async () => {
-    try {
-      // Request permission first
-      const hasPermission = await requestPhotoPermission();
-      
-      if (!hasPermission) {
-        Alert.alert(
-          'Permission Required',
-          'Please grant photo library access to change your profile picture.',
-          [{ text: 'OK' }]
-        );
-        return;
-      }
-
-      // Configure image picker options
-      const options = {
-        mediaType: 'photo' as MediaType,
-        includeBase64: false,
-        maxHeight: 2000,
-        maxWidth: 2000,
-        quality: 0.8,
-      };
-
-      // Launch image picker
-      launchImageLibrary(options, (response: ImagePickerResponse) => {
-        if (response.didCancel) {
-          return;
-        }
-        
-        if (response.errorMessage) {
-          Alert.alert('Error', 'Failed to select image');
-          return;
-        }
-
-        if (response.assets && response.assets[0]) {
-          const imageUri = response.assets[0].uri;
-          if (imageUri) {
-            setProfileImage(imageUri);
-          }
-        }
-      });
-    } catch (error) {
-      console.error('Error accessing photos:', error);
-      Alert.alert('Error', 'Failed to access photo library');
-    }
-  };
 
   const renderAvatar = () => {
     if (profileImage) {
@@ -101,7 +51,7 @@ const RegisterScreen = () => {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerContent}>
-          <TouchableOpacity style={styles.backButton}>
+          <TouchableOpacity onPress={handleBack} style={styles.backButton}>
             <Icon name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
           
@@ -117,7 +67,6 @@ const RegisterScreen = () => {
           </View>
           <TouchableOpacity 
             style={styles.editButton}
-            onPress={handleEditProfile}
             activeOpacity={0.7}
           >
             <Icon name="edit" size={16} color="white" />
@@ -140,7 +89,7 @@ const RegisterScreen = () => {
         
         <View style={styles.underline} />
         
-        <TouchableOpacity style={styles.nextButton}>
+        <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
           <View style={styles.nextButtonBackground}>
             <Icon name="arrow-forward" size={24} color="white" />
           </View>

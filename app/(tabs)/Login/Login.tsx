@@ -18,18 +18,6 @@ import { Svg, Path } from 'react-native-svg';
 import { countries, Country, getCountryByCode } from '../../../lib/code';
 import { useRouter } from 'expo-router';
 
- const router = useRouter();
-const handleNavigate = () => {
-   
-    router.push('/(tabs)/login/otp');
-  };
-  const handleRegister = () => {
-   
-    router.push('/(tabs)/SignUp/signup_userprofile');
-  };
-  
-  
-
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Responsive dimensions
@@ -37,6 +25,7 @@ const isSmallScreen = screenWidth < 375;
 const isTablet = screenWidth > 768;
 
 const NumberEntry = () => {
+  const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<Country>(
@@ -44,16 +33,37 @@ const NumberEntry = () => {
   );
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isRegisterMode, setIsRegisterMode] = useState(false); // track if in register mode
 
+  // Navigate to OTP for both login and register
   const handleContinue = () => {
     console.log('Phone number:', selectedCountry.dialCode + phoneNumber.replace(/\s/g, ''));
     console.log('Remember me:', rememberMe);
+    console.log('Register mode:', isRegisterMode);
+    
+    // Navigate to OTP 
+    router.push('/(tabs)/login/otp');
+  };
+
+  // Toggle between login and register mode
+  const handleRegister = () => {
+    setIsRegisterMode(true);
+    // Clear form when switching to register mode
+    setPhoneNumber('');
+    setRememberMe(false);
+  };
+
+  // Switch back to login mode
+  const handleLogin = () => {
+    setIsRegisterMode(false);
+    // Clear form when switching to login mode
+    setPhoneNumber('');
+    setRememberMe(false);
   };
 
   const formatPhoneNumber = (text: string, dialCode: string) => {
     const cleaned = text.replace(/\D/g, '');
     
-  
     if (dialCode === '+27') { 
       if (cleaned.length <= 2) {
         return cleaned;
@@ -79,7 +89,7 @@ const NumberEntry = () => {
         return `${cleaned.slice(0, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7, 11)}`;
       }
     } else {
-      // Generic formatting for other countries
+      //  formatting for other countries
       if (cleaned.length <= 3) {
         return cleaned;
       } else if (cleaned.length <= 6) {
@@ -223,20 +233,26 @@ const NumberEntry = () => {
           {/* Header Content */}
           <View style={styles.header}>
             <View style={styles.headerTop}>
-              <Text style={styles.loginText}>Login</Text>
+              <Text style={styles.loginText}>
+                {isRegisterMode ? 'Register' : 'Login'}
+              </Text>
               <TouchableOpacity 
                 style={styles.registerButton}
                 activeOpacity={0.8}
-              onPress={handleRegister}
+                onPress={isRegisterMode ? handleLogin : handleRegister}
               >
-                <Text style={styles.registerText}>Register</Text>
+                <Text style={styles.registerText}>
+                  {isRegisterMode ? 'Login' : 'Register'}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {/* Form Content */}
           <View style={styles.formContainer}>
-            <Text style={styles.infoText}>You will get a code via SMS</Text>
+            <Text style={styles.infoText}>
+              You will get a code via SMS
+            </Text>
             
             {/* Phone Input */}
             <View style={styles.phoneInputContainer}>
@@ -264,24 +280,27 @@ const NumberEntry = () => {
               />
             </View>
 
-            {/* Remember Me Checkbox */}
-            <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={[styles.checkbox, rememberMe && styles.checkboxChecked]}
-                onPress={() => setRememberMe(!rememberMe)}
-                activeOpacity={0.8}
-              >
-                {rememberMe && (
-                  <Text style={styles.checkmark}>✓</Text>
-                )}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setRememberMe(!rememberMe)}>
-                <Text style={styles.checkboxLabel}>Remember me</Text>
-              </TouchableOpacity>
-            </View>
+            {/* Remember Me Checkbox - only show in login mode */}
+            {!isRegisterMode && (
+              <View style={styles.checkboxContainer}>
+                <TouchableOpacity
+                  style={[styles.checkbox, rememberMe && styles.checkboxChecked]}
+                  onPress={() => setRememberMe(!rememberMe)}
+                  activeOpacity={0.8}
+                >
+                  {rememberMe && (
+                    <Text style={styles.checkmark}>✓</Text>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setRememberMe(!rememberMe)}>
+                  <Text style={styles.checkboxLabel}>Remember me</Text>
+                </TouchableOpacity>
+              </View>
+            )}
 
             {/* Continue Button */}
-            <TouchableOpacity onPress={ handleNavigate}
+            <TouchableOpacity 
+              onPress={handleContinue}
               style={[
                 styles.continueButton,
                 isPhoneValid() && styles.continueButtonActive
@@ -509,7 +528,7 @@ const createStyles = () => {
       color: '#000',
     },
     modalPlaceholder: {
-      width: 60, // Same width as close button for centering
+      width: 60,
     },
     searchContainer: {
       paddingHorizontal: 20,
