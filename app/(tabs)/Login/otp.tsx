@@ -69,7 +69,7 @@ const OTPEntry = () => {
     
     // Navigate based on mode
     if (isRegisterMode) {
-      // if in register mode, go to signup user profile
+      // if in register mode, go to signup user 
       router.push('/(tabs)/SignUp/setpin');
     } else {
       router.push('/(tabs)/SignUp/signup_userprofile'); 
