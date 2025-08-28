@@ -1,19 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  View,
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  Dimensions,
-  Platform,
-  KeyboardAvoidingView,
-  ScrollView,
+  View,
 } from 'react-native';
-import { Svg, Path } from 'react-native-svg';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { Path, Svg } from 'react-native-svg';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -77,7 +77,7 @@ const OTPEntry = () => {
   };
 
   const handleBack = () => {
-    router.push('/(tabs)/login/Login');
+    router.push('/(tabs)/Login/Login');
   };
 
   const handleResend = () => {
