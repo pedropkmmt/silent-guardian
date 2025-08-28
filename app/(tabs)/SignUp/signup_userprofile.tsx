@@ -1,19 +1,16 @@
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  StatusBar,
-  SafeAreaView,
-  Image,
-  Alert,
-  Platform,
-  PermissionsAndroid,
+  View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useRouter } from 'expo-router';
 
 
 
@@ -24,7 +21,7 @@ const handleNext = () => {
   };
   const handleBack = () => {
    
-    router.push('/(tabs)/login/Login');
+    router.push('/(tabs)/Login/Login');
   };
 const RegisterScreen = () => {
   const [name, setName] = useState('');
