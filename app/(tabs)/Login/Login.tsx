@@ -1,22 +1,22 @@
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
+  Dimensions,
+  FlatList,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  Dimensions,
-  Platform,
-  KeyboardAvoidingView,
-  ScrollView,
-  Modal,
-  FlatList,
+  View,
 } from 'react-native';
-import { Svg, Path } from 'react-native-svg';
+import { Path, Svg } from 'react-native-svg';
 import { countries, Country, getCountryByCode } from '../../../lib/code';
-import { useRouter } from 'expo-router';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -42,7 +42,7 @@ const NumberEntry = () => {
     console.log('Register mode:', isRegisterMode);
     
     // Navigate to OTP 
-    router.push('/(tabs)/login/otp');
+    router.push('/(tabs)/Login/otp');
   };
 
   // Toggle between login and register mode
