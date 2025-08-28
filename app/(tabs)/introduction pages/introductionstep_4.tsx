@@ -1,24 +1,24 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
   Dimensions,
   Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 const { width, height } = Dimensions.get('window');
 
  const router = useRouter();
 
   const handleNavigate = () => {
    
-    router.push('../login/Login');
+    router.push('../Login/Login');
   };
       const handleSkip = () => {
-  router.push('/(tabs)/login/Login'); 
+  router.push('/(tabs)/Login/Login'); 
 };
 const PaginationDots = ({ currentIndex = 4, totalDots = 4 }) => (
   <View style={styles.paginationContainer}>
