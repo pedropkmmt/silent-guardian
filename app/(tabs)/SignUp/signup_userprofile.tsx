@@ -21,7 +21,7 @@ const handleNext = () => {
   };
   const handleBack = () => {
    
-    router.push('/(tabs)/Login/Login');
+    router.push('/(tabs)/login/Login');
   };
 const RegisterScreen = () => {
   const [name, setName] = useState('');

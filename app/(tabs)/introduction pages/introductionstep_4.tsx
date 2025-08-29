@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get('window');
     router.push('../Login/Login');
   };
       const handleSkip = () => {
-  router.push('/(tabs)/Login/Login'); 
+  router.push('/(tabs)/login/Login'); 
 };
 const PaginationDots = ({ currentIndex = 4, totalDots = 4 }) => (
   <View style={styles.paginationContainer}>
@@ -59,7 +59,7 @@ const IntroductionScreenFour = () => {
       {/* Bottom Section */}
       <View style={styles.bottomContainer}>
         {/* Get Started Button */}
-        <TouchableOpacity onPress={ handleNavigate} style={styles.getStartedButton}>
+        <TouchableOpacity onPress={ handleSkip} style={styles.getStartedButton}>
           <Text  style={styles.getStartedText}>Get started</Text>
         </TouchableOpacity>
          {/* Navigation Buttons */}

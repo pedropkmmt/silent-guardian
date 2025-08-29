@@ -61,7 +61,7 @@ const IntroductionScreenThree = () => {
       {/* Bottom Section */}
       <View style={styles.bottomContainer}>
         {/* Get Started Button */}
-        <TouchableOpacity onPress={ handleNavigate} style={styles.getStartedButton}>
+        <TouchableOpacity onPress={ handleSkip} style={styles.getStartedButton}>
           <Text  style={styles.getStartedText}>Get started</Text>
         </TouchableOpacity>
          {/* Navigation Buttons */}

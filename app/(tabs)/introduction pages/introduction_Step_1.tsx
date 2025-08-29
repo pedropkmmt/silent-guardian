@@ -16,7 +16,6 @@ const router = useRouter();
 const handleNavigate = () => {
   router.push('/(tabs)/introduction pages/introductionstep_2');
 };
-
 const handleSkip = () => {
   router.push('/(tabs)/login/Login'); 
 };
@@ -60,7 +59,7 @@ const IntroductionScreenOne = () => {
       {/* Bottom Section */}
       <View style={styles.bottomContainer}>
         {/* Get Started Button */}
-        <TouchableOpacity onPress={handleNavigate} style={styles.getStartedButton}>
+        <TouchableOpacity onPress={handleSkip} style={styles.getStartedButton}>
           <Text style={styles.getStartedText}>Get started</Text>
         </TouchableOpacity>
 

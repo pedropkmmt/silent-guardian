@@ -10,6 +10,10 @@ import {
 import { useRouter } from 'expo-router';
 
 const router = useRouter();
+const handlNavigate = () => {
+   
+    router.push('/(tabs)/ChatList');
+  };
 const handleBack = () => {
    
     router.push('/(tabs)/SignUp/signup_userprofile');
@@ -111,11 +115,11 @@ const PINSecurityPage = () => {
 
       {/* Bottom Buttons */}
       <View style={styles.bottomContainer}>
-        <TouchableOpacity style={styles.skipButton}>
+        <TouchableOpacity style={styles.skipButton} onPress={handlNavigate}>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity 
+        <TouchableOpacity onPress={handlNavigate}
           style={[
             styles.continueButton,
             pin.length === maxPinLength ? styles.continueButtonActive : styles.continueButtonInactive

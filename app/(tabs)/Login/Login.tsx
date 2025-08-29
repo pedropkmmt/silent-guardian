@@ -42,7 +42,7 @@ const NumberEntry = () => {
     console.log('Register mode:', isRegisterMode);
     
     // Navigate to OTP 
-    router.push('/(tabs)/Login/otp');
+    router.push('/(tabs)/login/otp');
   };
 
   // Toggle between login and register mode
